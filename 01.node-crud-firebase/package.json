@@ -1,0 +1,16 @@
+{
+  "name": "api-node-crud-firebase",
+  "version": "1.0.0",
+  "description": "api-rest Node and firebase.",
+  "main": "index.js",
+  "scripts": {
+    "dev":"nodemon server.js"
+  },
+  "author": "albertrein",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase-admin": "^8.8.0",
+    "nodemon": "^2.0.2"
+  }
+}
