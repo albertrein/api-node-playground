@@ -4,5 +4,8 @@
   "description": "Construção do Backend da perfecta.",
   "main": "index.js",
   "author": "albertrein",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
