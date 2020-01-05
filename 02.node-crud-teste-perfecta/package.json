@@ -1,0 +1,8 @@
+{
+  "name": "02.node-crud-teste-perfecta",
+  "version": "0.0.1",
+  "description": "Construção do Backend da perfecta.",
+  "main": "index.js",
+  "author": "albertrein",
+  "license": "MIT"
+}
