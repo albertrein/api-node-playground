@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 
+//teste
+const categoria = require('./controller/categoria/Categoria');
+let teste = new categoria();
+
 //Json Comunication
 app.use(express.urlencoded())
 app.use(express.json())
