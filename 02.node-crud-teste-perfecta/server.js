@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
 
-//teste
-const categoria = require('./controller/categoria/Categoria');
-let teste = new categoria();
+//Models
+const Categoria = require('./src/model/categoria/Categoria');
+const Vaga = require('./src/model/vaga/Vaga');
+const categoria = new Categoria();
+//const vaga = new Vaga();
 
 //Json Comunication
 app.use(express.urlencoded())
 app.use(express.json())
 
+//Controllers
 //Routes GET
 app.get("/categorias", (req, res) => {
 	console.log('teste');
@@ -27,12 +30,13 @@ app.post('/nova/vaga', (req, res) => {
 });
 
 //Routes DELETE
-app.delete('/excluir/categoria/:id', (req, res) => {});
+app.delete('/excluir/categoria/:name', (req, res) => {
+	categoria.createCategory(req.params.name);
+	res.send({"Received": req.params.name});
+});
 
 app.delete('/excluir/vaga/:id', (req, res) => {
-	console.log('/excluir/vaga');
-	console.log(req.params.id);
-	res.send({"Receive": req.params.id});
+	res.send({"Received": req.params.id});
 });
 
 
