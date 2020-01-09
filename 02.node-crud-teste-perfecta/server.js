@@ -17,24 +17,24 @@ app.get("/categorys", (req, res) => {
 	res.send(category.getAllCategorys);
 });
 
-app.get('/jobs', (req, res) => (
+app.get('/jobs', (req, res) => {
 	//res.send(job.getAllJobs);
-));
+});
 
 //Routes POST
-app.post('/nova/categoria/:category', (req, res) => {
+app.post('/new/category/:category', (req, res) => {
 	categoria.createCategory(req.params.category, res);	
 });
-app.post('/nova/job/:jobName', (req, res) => {
+app.post('/new/job/:jobName', (req, res) => {
 	//job.createJob(req.params.jobName, res);
 });
 
 //Routes DELETE
-app.delete('/excluir/categoria/:categoryName', (req, res) => {
+app.delete('/delete/category/:categoryName', (req, res) => {
 	categoria.deleteCategory(req.params.categoryName, res);
 });
 
-app.delete('/excluir/vaga/:jobName', (req, res) => {
+app.delete('/delete/job/:jobName', (req, res) => {
 	//job.deleteJob(req.params.jobName, res);	
 });
 
