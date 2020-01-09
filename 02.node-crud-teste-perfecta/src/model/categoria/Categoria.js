@@ -1,13 +1,12 @@
-const Firebase = require('../Firebase');
+const firebase = require('../Firebase');
 
-module.exports = class Categoria extends Firebase{
+module.exports = class Categoria{
 	constructor(){
-		super();
+		
 	}
 
 	createCategory(categoryName){
-		let newCategory = this.collectionReference.child(categoryName);
-		newCategory.set({"vagas": "" }).onWrite(() => {console.log('salvo')});
+		firebase.ref('perfecta/'+categoryName).set({"vagas":""}).then(res => {console.log(res)});
 	}
 
 }
