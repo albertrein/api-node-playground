@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 
 //Models
-const Categoria = require('./src/model/categoria/Categoria');
-const Vaga = require('./src/model/vaga/Vaga');
+const Categoria = require('./src/model/category/Category');
+const Job = require('./src/model/job/Job');
 const categoria = new Categoria();
-//const vaga = new Vaga();
+//const job = new Job();
 
 //Json Comunication
 app.use(express.urlencoded())
@@ -13,13 +13,12 @@ app.use(express.json())
 
 //Controllers
 //Routes GET
-app.get("/categorias", (req, res) => {
-	console.log('teste');
-	res.send("<h1>teste</h1>")
+app.get("/categorys", (req, res) => {
+	res.send(category.getAllCategorys);
 });
 
-app.get('/vagas', (req, res) => (
-	res.send('<h1>teste</h1>')
+app.get('/jobs', (req, res) => (
+	//res.send(job.getAllJobs);
 ));
 
 //Routes POST
