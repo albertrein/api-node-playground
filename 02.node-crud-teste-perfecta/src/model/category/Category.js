@@ -8,8 +8,20 @@ module.exports = class Categoria{
 		});
 	}
 
-	createCategory(categoryName){
-		firebase.ref('perfecta/'+categoryName).set({"vagas":""}).then(res => {console.log(res)});
+	createCategory(categoryName, serverResponse){
+		firebase.ref('perfecta/'+categoryName).set({"vagas":""}).then(res => {
+			serverResponse.send({"OK":"Received"});
+		});
+	}
+	createCategory(categoryName, serverResponse){
+		firebase.ref('perfecta/'+categoryName).set({"vagas":""}).then(res => {
+			serverResponse.send({"OK":"Received"});
+		});
+	}
+	deleteCategory(categoryName, serverResponse){
+		firebase.ref('perfecta/'+categoryName).set({"vagas":""}).then(res => {
+			serverResponse.send({"OK":"Deleted"});
+		});
 	}
 
 }
