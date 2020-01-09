@@ -23,23 +23,21 @@ app.get('/vagas', (req, res) => (
 ));
 
 //Routes POST
-app.post('/nova/categoria', (req, res) => {});
-app.post('/nova/vaga', (req, res) => {
-	console.log('>>','nova/vaga');
-	res.send({"ok":"ok"})
+app.post('/nova/categoria/:category', (req, res) => {
+	categoria.createCategory(req.params.category, res);	
+});
+app.post('/nova/job/:jobName', (req, res) => {
+	//job.createJob(req.params.jobName, res);
 });
 
 //Routes DELETE
-app.delete('/excluir/categoria/:name', (req, res) => {
-	categoria.createCategory(req.params.name);
-	res.send({"Received": req.params.name});
+app.delete('/excluir/categoria/:categoryName', (req, res) => {
+	categoria.deleteCategory(req.params.categoryName, res);
 });
 
-app.delete('/excluir/vaga/:id', (req, res) => {
-	res.send({"Received": req.params.id});
+app.delete('/excluir/vaga/:jobName', (req, res) => {
+	//job.deleteJob(req.params.jobName, res);	
 });
 
-
-//Routes GET
 
 app.listen(3000);
