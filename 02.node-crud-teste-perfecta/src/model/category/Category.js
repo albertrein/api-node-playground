@@ -25,9 +25,8 @@ module.exports = class Categoria{
 	}
 
 	createCategory(categoryName, serverResponse){
-		firebase.ref('perfecta/'+categoryName).set({"vagas":""}).then(res => {
-			serverResponse.send({"OK":"Created"});
-		});
+		firebase.ref('perfecta/'+categoryName).set({"jobs":""});
+		serverResponse.send({"OK":"Created"});
 	}
 
 	async deleteCategory(categoryName, serverResponse){
