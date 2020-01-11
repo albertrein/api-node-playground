@@ -5,7 +5,7 @@ const app = express();
 const Category = require('./src/model/category/Category');
 const Job = require('./src/model/job/Job');
 const category = new Category();
-//const job = new Job();
+const job = new Job();
 
 //Json Comunication
 app.use(express.urlencoded())
@@ -22,16 +22,21 @@ app.get('/jobs', (req, res) => {
 });
 
 //Routes POST
-app.post('/new/category/:category', (req, res) => {
-	category.createCategory(req.params.category, res);	
+app.post('/new/category/:category', async (req, res) => {
+	if(await category.createCategory(req.params.category)){
+		res.send({"OK":"Sucess"})
+	}else{
+		res.send({"OK":"Fail"})
+	}
 });
-app.post('/new/job/:jobName', (req, res) => {
-	//job.createJob(req.params.jobName, res);
+app.post('/new/job/', (req, res) => {
+	job.createJob(req.body.jobCategory, req.body.jobName);
+	res.send({"OK":"Fail"})
 });
 
 //Routes DELETE
 app.delete('/delete/category/:categoryName', async (req, res) => {
-	if(await category.deleteCategory(req.params.categoryName, res)) {
+	if(await category.deleteCategory(req.params.categoryName)) {
 		res.send({"OK":"Sucess"})
 	}else{
 		res.send({"OK":"Fail"})
@@ -42,5 +47,22 @@ app.delete('/delete/job/:jobName', (req, res) => {
 	//job.deleteJob(req.params.jobName, res);	
 });
 
+//////TESTE -------------------
+app.post('/teste/:val', async (req, res) => {
+	if(await job.makeTest(req.params.val)){
+		res.send({"sended":"success"})
+	}else{
+		res.send({"sended":"Fail"})		
+	}
+})
+app.get('/teste', (req, res) => {
+	job.readTest();
+	res.send({"ok":"ok"})
+})
+app.delete('/teste', (req, res) => {
+	job.deleteTest();
+	res.send({"ok":"ok"})
+})
+/////////////////////
 
 app.listen(3000);
