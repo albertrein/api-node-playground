@@ -2,41 +2,42 @@ const firebase = require('../Firebase');
 
 module.exports = class Categoria{
 	constructor(){
-		this.databaseReference = firebase.ref('perfecta');
-		this.databaseReference.on('value', snapshot => {
-			///console.log('>>',snapshot);
-		});
+		this.databaseReference = firebase.ref('perfecta/perfecta-category');
 	}
 
-	getAllCategorys(){
-		let categoryList = {};
-		this.databaseReference.on('value', snapshot => {
-			categoryList = snapshot.val();
-		});
-
-		//Get all keys from object and insert into categoryKeys to make arrays list
-		let categoryKeys = [];
-		for(let cat in categoryList){
-			categoryKeys.push(cat);
-		}
-
-		//return key and arrayList of keys categorys
-		return {"categoryList": categoryKeys}
-	}
-
-	createCategory(categoryName, serverResponse){
-		firebase.ref('perfecta/'+categoryName).set({"jobs":""});
-		serverResponse.send({"OK":"Created"});
-	}
-
-	async deleteCategory(categoryName, serverResponse){
-		let refe = firebase.ref('perfecta/'+categoryName);
+	createCategory(categoryName){
 		let sended = false;
-		refe.on('child_removed', snap => {
+		this.databaseReference.on('child_added', evt => {
 			sended = true;
 		});
-		await refe.remove();
+		this.databaseReference.push({"category":categoryName});
 		return sended;
 	}
 
+	deleteCategory(categoryName){
+		let sended = false;
+		this.databaseReference.on('child_removed', el => {
+			sended = true;
+		});
+
+		this.databaseReference.once('value', object => {
+			let categoriesObj = object.val();
+			for(let key in categoriesObj){
+				if( categoriesObj[key].category == categoryName ){
+					this.databaseReference.child(key).remove();
+					break;
+				}
+			}
+		})
+
+		return sended;
+	}
+
+
+	getAllCategorys(){
+		let categoryList = {};
+		this.databaseReference.once('value', snapshot => {
+			return snapshot.val();
+		});
+	}
 }
