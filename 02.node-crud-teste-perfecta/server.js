@@ -29,9 +29,12 @@ app.post('/new/category/:category', async (req, res) => {
 		res.send({"OK":"Fail"})
 	}
 });
-app.post('/new/job/', (req, res) => {
-	job.createJob(req.body.jobCategory, req.body.jobName);
-	res.send({"OK":"Fail"})
+app.post('/new/job/', async (req, res) => {
+	if(await job.createJob(req.body.jobCategory, req.body.jobTitle, req.body.jobDescription)){
+		res.send({"OK":"Success"});
+	}else{
+		res.send({"OK":"Fail"});		
+	}
 });
 
 //Routes DELETE
