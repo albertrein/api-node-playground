@@ -2,10 +2,7 @@ const firebase = require('../Firebase');
 
 module.exports = class Jobs{
 	constructor(){
-		this.databaseReference = firebase.ref('perfecta');
-		this.databaseReference.on('value', snapshot => {
-			///console.log('>>',snapshot);
-		});
+		this.databaseReference = firebase.ref('perfecta/perfecta-jobs');
 	}
 
 	getAllJobs(){
@@ -19,11 +16,14 @@ module.exports = class Jobs{
 		return {"AllJobs": AllJobs}
 	}
 
-	createJob(categoryName, jobName){
-		firebase.ref('perfecta/'+categoryName).on('value', snap => {
-			
+	createJob(categoryName, jobTitle, jobDescription){
+		let sended = false;
+		this.databaseReference.on('child_added', snap => {
+			sended = true;
 		});
-		firebase.ref('perfecta/'+categoryName).push({"job":jobName});
+
+		this.databaseReference.child(jobTitle).set({"description":jobDescription});
+		return sended;
 	}
 
 	async deleteJob(categoryName, serverResponse){
@@ -36,4 +36,36 @@ module.exports = class Jobs{
 		return sended;
 	}
 
+	// makeTest(categoryName){
+	// 	let sended = false;
+	// 	this.databaseReference.on('child_added', evt => {
+	// 		sended = true;
+	// 	});
+	// 	this.databaseReference.push({"category":categoryName});
+	// 	return sended;	
+	// }
+	// readTest(){
+	// 	firebase.ref('teste').once('value', snap => {
+	// 		let objeto = snap.val();
+
+	// 		for(let i in objeto){
+	// 			console.log('>>',objeto[i].job);
+	// 		}
+
+	// 	})
+	// }
+	// deleteTest(){
+
+
+	// 	firebase.ref('teste').once('value', snap => {
+	// 		let objeto = snap.val();
+
+	// 		for(let i in objeto){
+	// 			if(objeto[i].job == "guilherme"){
+	// 				firebase.ref('teste/'+i).remove();
+	// 			}
+	// 		}
+
+	// 	})
+	// }
 }
