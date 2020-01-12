@@ -26,46 +26,44 @@ module.exports = class Jobs{
 		return sended;
 	}
 
-	async deleteJob(categoryName, serverResponse){
-		let refe = firebase.ref('perfecta/'+categoryName);
-		let sended = false;
-		refe.on('child_removed', snap => {
-			sended = true;
+	async deleteJob(jobTitle){
+		let removed = false;
+		this.databaseReference.on('child_removed', el => {
+			removed = true;
 		});
-		await refe.remove();
-		return sended;
+		this.databaseReference.child(jobTitle).remove();
+		return removed;
 	}
 
-	// makeTest(categoryName){
-	// 	let sended = false;
-	// 	this.databaseReference.on('child_added', evt => {
-	// 		sended = true;
-	// 	});
-	// 	this.databaseReference.push({"category":categoryName});
-	// 	return sended;	
-	// }
-	// readTest(){
-	// 	firebase.ref('teste').once('value', snap => {
-	// 		let objeto = snap.val();
+	makeTestFilter(categoryName){
+		this.databaseReference.indexOn('category').equalTo(categoryName).once('value', obj => {
+			console.log(obj.val());
+		});
+		console.log('Dont');
+	}
 
-	// 		for(let i in objeto){
-	// 			console.log('>>',objeto[i].job);
-	// 		}
+	readTest(){
+		firebase.ref('teste').once('value', snap => {
+			let objeto = snap.val();
 
-	// 	})
-	// }
-	// deleteTest(){
+			for(let i in objeto){
+				console.log('>>',objeto[i].job);
+			}
+
+		})
+	}
+	deleteTest(){
 
 
-	// 	firebase.ref('teste').once('value', snap => {
-	// 		let objeto = snap.val();
+		firebase.ref('teste').once('value', snap => {
+			let objeto = snap.val();
 
-	// 		for(let i in objeto){
-	// 			if(objeto[i].job == "guilherme"){
-	// 				firebase.ref('teste/'+i).remove();
-	// 			}
-	// 		}
+			for(let i in objeto){
+				if(objeto[i].job == "guilherme"){
+					firebase.ref('teste/'+i).remove();
+				}
+			}
 
-	// 	})
-	// }
+		})
+	}
 }
