@@ -36,7 +36,7 @@ module.exports = class Jobs{
 	}
 
 	makeTestFilter(categoryName){
-		this.databaseReference.indexOn('category').equalTo(categoryName).once('value', obj => {
+		firebase.ref('perfecta/perfecta-category').orderByChild('category').equalTo(categoryName).once('value', obj => {
 			console.log(obj.val());
 		});
 		console.log('Dont');
