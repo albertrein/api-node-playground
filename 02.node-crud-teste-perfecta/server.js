@@ -46,17 +46,18 @@ app.delete('/delete/category/:categoryName', async (req, res) => {
 	}	
 });
 
-app.delete('/delete/job/:jobName', (req, res) => {
-	//job.deleteJob(req.params.jobName, res);	
+app.delete('/delete/job/:jobTitle', async (req, res) => {
+	if(await job.deleteJob(req.params.jobTitle)){
+		res.send({"OK":"Success"});
+	}else{
+		res.send({"OK":"Fail"});
+	}
 });
 
 //////TESTE -------------------
 app.post('/teste/:val', async (req, res) => {
-	if(await job.makeTest(req.params.val)){
-		res.send({"sended":"success"})
-	}else{
-		res.send({"sended":"Fail"})		
-	}
+	job.makeTestFilter(req.params.val);
+	res.send({"ok":"ok"})
 })
 app.get('/teste', (req, res) => {
 	job.readTest();
