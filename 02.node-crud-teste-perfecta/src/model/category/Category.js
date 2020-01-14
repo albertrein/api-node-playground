@@ -10,7 +10,7 @@ module.exports = class Categoria{
 		this.databaseReference.on('child_added', evt => {
 			sended = true;
 		});
-		this.databaseReference.set({"category":categoryName, ".indexOn": "category"});
+		this.databaseReference.push({"category":categoryName});
 		return sended;
 	}
 
