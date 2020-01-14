@@ -54,19 +54,4 @@ app.delete('/delete/job/:jobTitle', async (req, res) => {
 	}
 });
 
-//////TESTE -------------------
-app.post('/teste/:val', async (req, res) => {
-	job.makeTestFilter(req.params.val);
-	res.send({"ok":"ok"})
-})
-app.get('/teste', (req, res) => {
-	job.readTest();
-	res.send({"ok":"ok"})
-})
-app.delete('/teste', (req, res) => {
-	job.deleteTest();
-	res.send({"ok":"ok"})
-})
-/////////////////////
-
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
