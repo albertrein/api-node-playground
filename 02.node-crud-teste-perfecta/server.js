@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 //Models
 const Category = require('./src/model/category/Category');
@@ -10,6 +11,7 @@ const job = new Job();
 //Json Comunication
 app.use(express.urlencoded())
 app.use(express.json())
+app.use(cors())
 
 //Controllers
 //Routes GET
